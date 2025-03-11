@@ -29,4 +29,4 @@ app.use('/auth',authRouter)
 
 app.use('/user',userRouter)
 
-app.listen(8000,()=>{console.log("yourr server is running")})
+app.listen(process.env.PORT,()=>{console.log("yourr server is running")})
