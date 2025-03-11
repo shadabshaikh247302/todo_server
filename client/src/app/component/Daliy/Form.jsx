@@ -25,7 +25,7 @@ export const Form = ({ fetchTodos, setLoading }) => {
 
     let date = new Date();
     
-    console.log(date)
+    // console.log(date)
     let taskData = {
       ...formData,
       day: date.getDate(),

@@ -12,33 +12,29 @@ function todoFormatter(todos) {
         let completed = [];
         let date = new Date();
 
+        // Normalize the current date to the start of today (00:00:00)
+        let todayStart = new Date(date.setHours(0, 0, 0, 0));
+        let tomorrowStart = new Date(todayStart);
+        tomorrowStart.setDate(todayStart.getDate() + 1);
+
         todos.forEach(ele => {
             if (!ele.year || !ele.month || !ele.day) {
                 console.error("Invalid todo format:", ele);
                 return;
             }
 
-            if (parseInt(ele.year) > date.getFullYear()) {
+            // Create a task date using year, month, day
+            let taskDate = new Date(ele.year, ele.month - 1, ele.day); // month is 0-based in JS
+
+            // Compare task date with today's and tomorrow's date
+            if (taskDate >= todayStart && taskDate < tomorrowStart) {
+                todoList.today.push(ele);
+            } else if (taskDate >= tomorrowStart) {
                 todoList.tomorrow.push(ele);
-            } else if (parseInt(ele.year) < date.getFullYear()) {
-                todoList.previous.push(ele);
             } else {
-                if (parseInt(ele.month) > date.getMonth() + 1) {
-                    todoList.tomorrow.push(ele);
-                } else if (parseInt(ele.month) < date.getMonth() + 1) {
-                    todoList.previous.push(ele);
-                } else {
-                    if (parseInt(ele.day) > date.getDate()) {
-                        todoList.tomorrow.push(ele);
-                    } else if (parseInt(ele.day) < date.getDate()) {
-                        todoList.previous.push(ele);
-                    } else {
-                        todoList.today.push(ele);
-                    }
-                }
+                todoList.previous.push(ele);
             }
         });
-        // console.log(todoList)
 
         return { todoList, completed };
     } catch (error) {
@@ -46,6 +42,7 @@ function todoFormatter(todos) {
         return { todoList: {}, completed: [] };
     }
 }
+
 
 
 // exports.addData = async (req,res)=>{
