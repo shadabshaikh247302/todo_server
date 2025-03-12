@@ -5,7 +5,7 @@ import { Previous } from "./Previous";
 import { Tomorrow } from "./Tomorrow";
 import "./loader.css";
 
-import { DailyContext } from "@/app/Context/DailyContext";
+import { DailyContext } from "../../Context/DailyContext";
 import { Authcontext } from "../../Context/Authcontext";
 import { Navbar } from "../navbar/Navbar";
 import { Today } from "./Today";
