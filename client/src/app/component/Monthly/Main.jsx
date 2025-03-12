@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { Cards } from './Cards';
 import { Form } from './Form';
-import { MonthlyContext } from '@/app/Context/MonthlyContext';
-import { Authcontext } from '@/app/Context/Authcontext';
+import { MonthlyContext } from '../../Context/MonthlyContext';
+import { Authcontext } from "./../Context/Authcontext";
 // import { Authcontext } from '@/app/Context/AuthContext';
 
 const Main = () => {

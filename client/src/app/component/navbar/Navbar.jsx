@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-import { Authcontext } from "@/app/Context/Authcontext";
+import { Authcontext } from "../../Context/Authcontext";
 // import { Authcontext } from "@/app/Context/AuthContext";
 
 export const Navbar = () => {

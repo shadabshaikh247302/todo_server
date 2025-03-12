@@ -1,5 +1,5 @@
-import { Authcontext } from '@/app/Context/Authcontext'
-import { DailyContext } from '@/app/Context/DailyContext'
+import { Authcontext } from '../../Context/Authcontext'
+import { DailyContext } from '../../Context/DailyContext'
 import React, { useContext } from 'react'
 import toast from 'react-hot-toast'
 

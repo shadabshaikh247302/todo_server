@@ -1,7 +1,7 @@
 "use client"
 import React, { useContext, useEffect } from 'react'
 import { Signin } from './Signin'
-import { Authcontext } from '@/app/Context/Authcontext'
+import { Authcontext } from '../../Context/Authcontex'
 import { useRouter } from 'next/navigation'
 
 const page = () => {

@@ -1,6 +1,6 @@
 
-import { Authcontext } from "@/app/Context/Authcontext";
-import { DailyContext } from "@/app/Context/DailyContext";
+import { Authcontext } from "../../Context/Authcontext";
+import { DailyContext } from "../../Context/DailyContext";
 import { Stick } from "next/font/google";
 import React, { useContext, useEffect } from "react";
 import toast from "react-hot-toast";
