@@ -1,15 +1,16 @@
 "use client"
 import React, { useContext, useEffect } from 'react'
 import { Signin } from './Signin'
-import { Authcontext } from '../../Context/Authcontex'
+// import { Authcontext } from '../../Context/Authcontex'
 import { useRouter } from 'next/navigation'
+import { Authcontext } from '../../Context/Authcontext'
 
 const page = () => {
 
   const {AuthData} = useContext(Authcontext)
   const router = useRouter()
   useEffect(()=>{
-    if(AuthData.token !==""){
+    if(AuthData.token){
       router.push('/')
       toast.success("You are already logged in!")
     }

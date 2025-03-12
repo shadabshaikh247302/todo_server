@@ -1,4 +1,5 @@
 "use client"
+import { Underdog } from "next/font/google";
 // "use client"
 import { API } from "../../utils/Utils";
 import toast from "react-hot-toast"
@@ -6,7 +7,11 @@ import toast from "react-hot-toast"
 const { createContext, useReducer } = require("react")
 
 
-let inititalState = {}
+let inititalState = {};
+if (typeof window !== "undefined") {
+  const storedUserData = localStorage.getItem("userData");
+  inititalState = storedUserData ? JSON.parse(storedUserData) : {};
+}
 
 
 
@@ -32,9 +37,9 @@ async function signin(body){
 }
 async function getDataById(id){
     try {
-        console.log(id)
+        // console.log(id)
         const response = await API.get(`/auth/getDataById/${id}`)
-        console.log(response)
+        // console.log(response)
         return response
     } catch (error) {
         console.log(error)
