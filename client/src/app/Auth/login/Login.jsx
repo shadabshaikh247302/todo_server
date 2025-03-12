@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Box, IconButton, OutlinedInput, InputLabel, InputAdornment, FormControl, TextField, Button } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
-import { Authcontext } from '../../Context/Authcontext'
+import { Authcontext } from "../../Context/Authcontext";
 import { styled } from "@mui/material/styles";
 import toast from "react-hot-toast";
 
@@ -21,22 +21,35 @@ const VisuallyHiddenInput = styled("input")({
 export const Login = ({ setmode1, setmode }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const { login, dispatch, getDataById } = useContext(Authcontext);
+  const [isLoading, setIsLoading] = useState(false);
+  const { login, dispatch } = useContext(Authcontext);
   const router = useRouter();
 
-
   const handleSubmit = async () => {
-  
-    if (formData.email !== "" && formData.password !== "") {
+    if (!formData.email || !formData.password) {
+      toast.error("All fields are required!");
+      return;
+    }
+
+    // Show loading toast
+    const loadingToastId = toast.loading("Logging in...");
+
+    setIsLoading(true);
+    try {
       const data = await login(formData);
       if (data) {
         dispatch({ type: "LOGIN_IN", payload: data });
+        toast.success("You are successfully logged in");
         router.push("/");
-        toast.success("You are successfully login")
+      } else {
+        toast.error("Invalid credentials, please try again.");
       }
-    } else {
-      toast.error("All fields are required!")
-      // alert("Kindly fill the login form");
+    } catch (error) {
+      toast.error("Something went wrong! Try again.");
+      console.error("Login error:", error);
+    } finally {
+      toast.dismiss(loadingToastId);
+      setIsLoading(false);
     }
   };
 
@@ -97,8 +110,9 @@ export const Login = ({ setmode1, setmode }) => {
         color="primary"
         onClick={handleSubmit}
         style={{ marginTop: "20px" }}
+        disabled={isLoading}
       >
-        Login
+        {isLoading ? "Logging in..." : "Login"}
       </Button>
       <div className="text-center mt-3">
         <button

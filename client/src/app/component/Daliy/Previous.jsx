@@ -4,26 +4,22 @@ import React, { useContext } from "react";
 import toast from "react-hot-toast";
 // toast
 
-export const Previous = ({ fetchTodos ,setLoading}) => {
+export const Previous = ({ fetchTodos, setLoading }) => {
   const { state, deleteTodos } = useContext(DailyContext);
   const { AuthData } = useContext(Authcontext);
 
   async function handleDelete(id) {
-    // console.log(id)
     const status = await deleteTodos(id);
     const isConfirmed = window.confirm("Are you sure you want to delete this task?");
-    // console.log(status)
-    if (status.status == 200) {
-      if(isConfirmed){
-        setLoading(true)
+    if (status.status === 200) {
+      if (isConfirmed) {
+        setLoading(true);
         fetchTodos();
-        toast.success("Your task is deleted successfully.")
-        // toast.success(status.data.msg)
+        toast.success("Your task is deleted successfully.");
       }
-    }else{
-      toast.error(status.data.msg)
+    } else {
+      toast.error(status.data.msg);
     }
-
   }
 
   return (
@@ -31,7 +27,7 @@ export const Previous = ({ fetchTodos ,setLoading}) => {
       style={{
         borderRadius: "6px 6px 0px 0px",
         border: "0px solid black",
-        height: "405px",
+        height: "50vh",
         overflowY: "scroll",
         scrollbarWidth: "none", // Firefox
         msOverflowStyle: "none", // Internet Explorer & Edge
@@ -44,23 +40,24 @@ export const Previous = ({ fetchTodos ,setLoading}) => {
           position: "sticky",
           top: 0,
           fontWeight: "bold",
-          color: "#495057",
-          backgroundColor: "#FC6736", // Background for better visibility while scrolling
-          zIndex: 1, // Ensure it's above other content
+          backgroundColor: "#FC6736",
+          zIndex: 1,
+          padding: "10px",
+          boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.73)",
         }}
       >
-        Tomorrow's Tasks
+        Previous Tasks
       </h5>
 
       <ol className="list-group list-group-numbered">
         {state?.todos?.previous?.map((ele, i) => {
-          const date = new Date()
+          const date = new Date();
           const isOverdue =
             ele.year > date.getFullYear() ||
             ele.month > date.getMonth() ||
-            ele.day > date.getDate()
+            ele.day > date.getDate();
 
-          if (isOverdue) {
+          if (!isOverdue) { // If the task is previous (not overdue)
             return (
               <li
                 key={i}
@@ -84,7 +81,7 @@ export const Previous = ({ fetchTodos ,setLoading}) => {
                   <small
                     style={{
                       color: "black",
-                      fontWeight: "300"
+                      fontWeight: "300",
                     }}
                   >
                     Date: {ele.day}/{ele.month}/{ele.year}
@@ -121,16 +118,14 @@ export const Previous = ({ fetchTodos ,setLoading}) => {
                       <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1h1v1h-1v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6H1V5h1V4zm1 .5v8a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-8H3.5z" />
                     </svg>
                   </button>
-
-                
                 </div>
               </li>
-            )
+            );
           }
 
-          return null
+          return null;
         })}
       </ol>
     </div>
-  )
+  );
 };

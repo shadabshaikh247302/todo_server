@@ -26,25 +26,43 @@ export const Signin = ({ setMode }) => {
 
   async function handleSubmit() {
     try {
-      if (formData?.username !== "" && formData?.email !== "" && formData?.password !== "" && formData?.confirmPassword !== "") {
-        if (formData?.password === formData?.confirmPassword) {
-          const data = await signin(formData);
-          
-          dispatch({
-            type: "SIGN_IN",
-            payload: data
-          });
-          if (data) {
-            router.push('/');
-            toast.success("Signup Success!")
-            
-          }
-        }
-        alert("Please fill out the form!");
+      // Check if all fields are filled out
+      if (formData?.username === "" || formData?.email === "" || formData?.password === "" || formData?.confirmPassword === "") {
+        toast.error("Please fill out all fields!");
+        return;
       }
+
+      // Check if passwords match
+      if (formData?.password !== formData?.confirmPassword) {
+        toast.error("Passwords do not match!");
+        return;
+      }
+
+      // Show loading toast
+      const loadingToast = toast.loading("Signing up...");
+
+      // Perform sign in
+      const data = await signin(formData);
+      
+      // Dispatch action on successful sign in
+      dispatch({
+        type: "SIGN_IN",
+        payload: data
+      });
+
+      // If successful, redirect and show success toast
+      if (data) {
+        router.push('/');
+        toast.success("Signup Successful!");
+      }
+
+      // Remove loading toast after process is complete
+      toast.remove(loadingToast);
+
     } catch (error) {
-      toast.error(error)
-      console.log(error)
+      // Handle error properly and show error toast
+      toast.error(error?.message || "Something went wrong");
+      console.error(error);
     }
   }
 
@@ -68,9 +86,8 @@ export const Signin = ({ setMode }) => {
         maxWidth: "700px",
         background: "linear-gradient(90deg, rgba(190, 49, 68, 0.47), rgba(29, 22, 22, 0.36))",
         paddingTop: "20px",
-    
         paddingBottom: "20px",
-        // marginTop: "-10vh",
+        width: "100%", // Ensure full width for responsiveness
       }}
     >
       <h4 className="text-center text-white mb-4">Sign Up Form</h4>

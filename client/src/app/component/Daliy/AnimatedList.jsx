@@ -27,7 +27,7 @@ const AnimatedItem = ({ children, delay = 0, index, onMouseEnter, onClick }) => 
         
         setLoading(false)
     }else{
-        alert("You are logout!")
+        // alert("You are logout!")
         router.push("/")
     }
 }

@@ -1,53 +1,81 @@
-import { Authcontext } from '../../Context/Authcontext'
-import { DailyContext } from '../../Context/DailyContext'
-import React, { useContext } from 'react'
-import toast from 'react-hot-toast'
+import { Authcontext } from '../../Context/Authcontext';
+import { DailyContext } from '../../Context/DailyContext';
+import React, { useContext, useState, useEffect, useRef } from 'react';
+import toast from 'react-hot-toast';
 
 export const Tomorrow = ({ fetchTodos, setLoading }) => {
-  const { AuthData } = useContext(Authcontext)
-  const { state, deleteTodos, moveToToday } = useContext(DailyContext)
-  // console.log(state)
+  const { AuthData } = useContext(Authcontext);
+  const { state, deleteTodos, moveToToday } = useContext(DailyContext);
+  const [tasks, setTasks] = useState([]);
+  const taskRefs = useRef([]); // Store refs for tasks
+
+  useEffect(() => {
+    if (state?.todos?.tomorrow) {
+      setTasks(state.todos.tomorrow);
+    }
+  }, [state]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in');
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    taskRefs.current.forEach((task) => {
+      if (task) observer.observe(task);
+    });
+
+    return () => observer.disconnect();
+  }, [tasks]);
 
   async function handleDelete(id) {
-    // console.log(id)
-    const status = await deleteTodos(id);
-    const isConfirmed = window.confirm("Are you sure you want to delete this task?");
-    // console.log(status)
-    if (status.status == 200) {
-      if(isConfirmed){
-        setLoading(true)
-        fetchTodos();
-        toast.success("Your task is deleted successfully.")
-        // toast.success(status.data.msg)
-      }
-    }else{
-      toast.error(status.data.msg)
-    }
+    const isConfirmed = window.confirm('Are you sure you want to delete this task?');
+    if (isConfirmed) {
+      toast.loading('Deleting task...');
+      setLoading(true);
+      const status = await deleteTodos(id);
 
+      if (status.status === 200) {
+        toast.dismiss();
+        toast.success('Task deleted successfully.');
+        fetchTodos();
+      } else {
+        toast.dismiss();
+        toast.error(status.data.msg);
+      }
+    }
   }
 
   async function moveToday(id) {
-    const status = await moveToToday(id)
-    console.log(status)
-    if(status){
-      setLoading(true)
+    toast.loading('Moving task...');
+    setLoading(true);
+    const status = await moveToToday(id);
+
+    if (status.status === 200) {
+      toast.dismiss();
+      toast.success('Task moved to today.');
       fetchTodos();
-      toast.success("Your task moved to today.")
-    }
-    if (status == 200) {
-      fetchTodos()
+    } else {
+      toast.dismiss();
+      toast.error('Failed to move task.');
     }
   }
 
   return (
     <div
       style={{
-        borderRadius: "6px 6px 0px 0px",
-        border: "0px solid black",
-        height: "405px",
-        overflowY: "scroll",
-        scrollbarWidth: "none", // Firefox
-        msOverflowStyle: "none", // Internet Explorer & Edge
+        borderRadius: '6px 6px 0px 0px',
+        border: '0px solid black',
+        height: '50vh',
+        overflowY: 'scroll',
+        scrollbarWidth: 'none', // Firefox
+        msOverflowStyle: 'none', // Internet Explorer & Edge
       }}
       className="custom-scrollbar"
     >
@@ -57,47 +85,48 @@ export const Tomorrow = ({ fetchTodos, setLoading }) => {
           position: "sticky",
           top: 0,
           fontWeight: "bold",
-          color: "#495057",
-          backgroundColor: "#FC6736", // Background for better visibility while scrolling
-          zIndex: 1, // Ensure it's above other content
+          backgroundColor: "#FC6736",
+          zIndex: 1,
+          padding: "10px",
+          boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.73)",
         }}
       >
         Tomorrow's Tasks
       </h5>
 
       <ol className="list-group list-group-numbered">
-        {state?.todos?.tomorrow?.map((ele, i) => {
-          const date = new Date()
+        {tasks.map((ele, i) => {
+          const date = new Date();
           const isOverdue =
             ele.year > date.getFullYear() ||
             ele.month > date.getMonth() ||
-            ele.day > date.getDate()
+            ele.day > date.getDate();
 
           if (isOverdue) {
             return (
               <li
                 key={i}
-                className="list-group-item d-flex justify-content-between align-items-start mb-2"
+                ref={(el) => (taskRefs.current[i] = el)}
+                className="list-group-item d-flex justify-content-between align-items-start mb-2 fade-task"
                 style={{
-                  borderRadius: "8px",
-                  color: "black",
-                  backgroundColor: "rgb(255, 255, 255)",
+                  borderRadius: '8px',
+                  backgroundColor: 'rgb(255, 255, 255)',
                 }}
               >
                 <div className="ms-2 me-auto">
                   <div
                     className="fw-bold"
                     style={{
-                      fontSize: "1rem",
-                      color: "black",
+                      fontSize: '1rem',
+                      color: 'black',
                     }}
                   >
                     {ele.tittle}
                   </div>
                   <small
                     style={{
-                      color: "black",
-                      fontWeight: "300"
+                      color: 'black',
+                      fontWeight: '300',
                     }}
                   >
                     Date: {ele.day}/{ele.month}/{ele.year}
@@ -109,19 +138,18 @@ export const Tomorrow = ({ fetchTodos, setLoading }) => {
                     type="checkbox"
                     className="form-check-input me-3"
                     style={{
-                      accentColor: "#0d6efd",
+                      accentColor: '#0d6efd',
                     }}
                   />
                   <button
                     className="btn btn-sm border-danger"
                     onClick={() => handleDelete(ele._id)}
                     style={{
-                      border: "1px solid white",
-                      padding: "6px 8px",
-                      fontSize: "0.85rem",
+                      border: '1px solid white',
+                      padding: '6px 8px',
+                      fontSize: '0.85rem',
                     }}
                   >
-                    {/* Trash Icon */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -139,12 +167,11 @@ export const Tomorrow = ({ fetchTodos, setLoading }) => {
                     className="btn btn-sm border-success mx-1"
                     onClick={() => moveToday(ele._id)}
                     style={{
-                      border: "1px solid white",
-                      padding: "6px 8px",
-                      fontSize: "0.85rem",
+                      border: '1px solid white',
+                      padding: '6px 8px',
+                      fontSize: '0.85rem',
                     }}
                   >
-                    {/* Move to today Icon */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -165,12 +192,12 @@ export const Tomorrow = ({ fetchTodos, setLoading }) => {
                   </button>
                 </div>
               </li>
-            )
+            );
           }
 
-          return null
+          return null;
         })}
       </ol>
     </div>
-  )
-}
+  );
+};

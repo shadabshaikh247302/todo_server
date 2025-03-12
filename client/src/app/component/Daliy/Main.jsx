@@ -38,7 +38,7 @@ const Main = () => {
           })
         }
       }else{
-        alert("You are logout!")
+        // alert("You are logout!")
         router.push("/")
       }
     } catch (error) {

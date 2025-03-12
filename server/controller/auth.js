@@ -10,7 +10,7 @@ exports.signIn = async (req,res)=>{
         const userToBeAdded =  new Uschema({...req.body,password:hashPassowrd, confirm_password:hashPassowrd}) 
         const dataToBeSaved = await userToBeAdded.save()
         const token = jwt.sign({ email,password}, process.env.SECRET, { expiresIn: '1h' });
-        res.send({token,name:userToBeAdded.username,userID:userToBeAdded._id,msg:"Sign in successfull!"})
+        res.send({token,name:userToBeAdded.username,userID:userToBeAdded._id,image:userToBeAdded.profilePicture,msg:"Sign in successfull!"})
     } catch (error) {
         console.log(error)
     }
@@ -24,7 +24,6 @@ exports.logIn = async (req,res)=>{
                 if(passwordVerify){
                     const token = jwt.sign({ email,password}, process.env.SECRET, { expiresIn: '1h' });
                     res.send({token,userID:mailVerify._id,name:mailVerify.username,image:mailVerify.profilePicture})
-                   
                 }else{
                     res.status(401).send("passowrd  is incorrect")
                 }
