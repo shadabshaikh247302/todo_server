@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { MonthlyContext } from "@/app/Context/MonthlyContext";
 // import { Navbar } from "../navbar/Navbar";
 
-export const  Main_component = ({setCompo }) =>  {
+export const Main_component = ({setCompo }) =>  {
   const router = useRouter();
   
   const { Planning } = useContext(MonthlyContext);

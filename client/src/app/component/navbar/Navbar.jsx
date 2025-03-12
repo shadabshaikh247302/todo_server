@@ -16,9 +16,12 @@ export const Navbar = () => {
     setIsMounted(true); // Ensures it only renders on the client
   }, []);
   function logoutHandler() {
-    localStorage.removeItem("userData");
-    window.location.reload()
-    router.push("/");
+    const isConfirmLogout = window.confirm("Are you sure you want to logout?")
+    if(isConfirmLogout){
+      localStorage.removeItem("userData");
+      window.location.reload()
+      router.push("/");
+    }
   }
 
   return (
@@ -98,20 +101,23 @@ export const Navbar = () => {
               // background: "rgba(0,0,0,0.8)",
               color: "white"
             }}>
-            <ul className="navbar-nav text-center">
-              <li className="nav-item">
-                <Link className="nav-link text-light" href="/">Home</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link text-light" href="/about">About</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link text-light" href="/services">Services</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link text-light" href="/contact">Contact</Link>
-              </li>
-            </ul>
+              <ul className="navbar-nav">
+            <li className="nav-item mx-2">
+              <Link className="nav-link text-light" href="/">Home</Link>
+            </li>
+            <li className="nav-item mx-2">
+              <Link className="nav-link text-light" href="#">About</Link>
+            </li>
+            <li className="nav-item mx-2">
+              <Link className="nav-link text-light" href="#">Services</Link>
+            </li>
+            <li className="nav-item mx-2">
+            <Link className="nav-link text-light" href="#">Contact</Link>
+            </li>
+            <li>
+              <Link href="/Auth/login" className="nav-link text-light">Login</Link>
+            </li>
+          </ul>
           </motion.div>
         )}
       </AnimatePresence>

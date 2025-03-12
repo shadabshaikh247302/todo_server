@@ -29,7 +29,7 @@ export const Signin = ({ setMode }) => {
       if (formData?.username !== "" && formData?.email !== "" && formData?.password !== "" && formData?.confirmPassword !== "") {
         if (formData?.password === formData?.confirmPassword) {
           const data = await signin(formData);
-          // console.log(data);
+    
           dispatch({
             type: "SIGN_IN",
             payload: data

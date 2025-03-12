@@ -2,9 +2,10 @@ import { useContext, useState, useEffect } from "react";
 import { MonthlyContext } from "@/app/Context/MonthlyContext";
 import { Authcontext } from "@/app/Context/AuthContext";
 import "./Card.css"; // Import styles
+import toast from "react-hot-toast";
 
 export const Cards = ({ fetchTodos }) => {
-  const { MonthlyPlan, month, deleteTaskMonthly } = useContext(MonthlyContext);
+  const { MonthlyPlan, month, addTaskToMonth, deleteTaskMonthly } = useContext(MonthlyContext);
   const { AuthData } = useContext(Authcontext);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -20,17 +21,19 @@ export const Cards = ({ fetchTodos }) => {
     return acc;
   }, {});
 
-  // Sort tasks by month index
   const sortedGroupedTasks = Object.values(groupedTasks).sort(
     (a, b) => month.indexOf(a.name) - month.indexOf(b.name)
   );
 
-  // Handle delete task
+  // Handle Task Deletion
   async function handleDelete(id) {
-    const status = await deleteTaskMonthly(AuthData, id);
-    if (status === 200) {
-      fetchTodos();
-      window.location.reload()
+    const confirmDeleteHandler = window.confirm("Are you sure you want to delete this task?");
+    if (confirmDeleteHandler) {
+      const status = await deleteTaskMonthly(id);
+      if (status) {
+        toast.success(status.data.msg);
+        fetchTodos();
+      }
     }
   }
 
@@ -40,29 +43,36 @@ export const Cards = ({ fetchTodos }) => {
     }
   }, [MonthlyPlan]);
 
+
+
   return (
-    <div className="card-container scroll-container"style={{border:"0px solid black",overflowX:"scroll",height:"400px"}}>
+    <div className="monthly-container ">
       {sortedGroupedTasks.length > 0 ? (
-        sortedGroupedTasks.map(({ name, tasks }) => (
-          <div key={name} className="month-section">
-            <h2 className="month-title">{name}</h2>
-            <ul className="task-list">
-              {tasks.map((task) => (
-                <li key={task._id} className="task-item">
-                  <div className="card-month">
+        <div className="months-grid">
+          {sortedGroupedTasks.map(({ name, tasks }, index) => (
+            <div key={name} className="month-section">
+              <p className="month-title">{name}</p> {/* Month Title */}
+              <ul className="task-list">
+                {tasks.map((task) => (
+                  <li key={task._id} className="task-item">
                     <div className="task-details">
-                      <p><strong>Title:</strong> {task.tittle}</p>
+                      <p className="d-flex"><strong>Title: </strong>&nbsp;{ task.tittle}</p>
                       <p><strong>Date:</strong> {task.day}/{task.year}</p>
                     </div>
-                    <button className="delete-btn" onClick={() => handleDelete(task._id)}>
-                      ✖
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDelete(task._id)}
+                    >
+                      🗑️
                     </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))
+                  </li>
+                ))}
+              </ul>
+              {/* Add Task Button */}
+          
+            </div>
+          ))}
+        </div>
       ) : (
         <p className="no-tasks">No tasks available.</p>
       )}

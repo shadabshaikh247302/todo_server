@@ -7,22 +7,15 @@ import { Authcontext } from '@/app/Context/AuthContext';
 const Main = () => {
 const {dispatch,getTaskMonthly,name,MonthlyPlan} = useContext(MonthlyContext)
 const{AuthData} = useContext(Authcontext)
-
-
 useEffect(()=>{
   fetchTodos()
- 
 },[])
-
-
 
 async function fetchTodos() {
   try {
-    const Data = await getTaskMonthly();
-    if (typeof name === "function") {
-      name();
-    }
-    if (Data?.data) {
+    const Data = await getTaskMonthly(AuthData?.userID);
+    // console.log(Data)
+    if (Data) {
       dispatch({
         type: "ADD_PLAN",
         payload: Data?.data,

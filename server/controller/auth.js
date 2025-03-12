@@ -4,12 +4,13 @@ const Uschema = require('../schema/user')
 
 exports.signIn = async (req,res)=>{
     try {
-        const {password} = req.body
+        const {password,email} = req.body
         const salt = await bcrypt.genSalt(10)
         const hashPassowrd = await bcrypt.hash(password, salt)
         const userToBeAdded =  new Uschema({...req.body,password:hashPassowrd, confirm_password:hashPassowrd}) 
         const dataToBeSaved = await userToBeAdded.save()
-        res.send({userToBeAdded,msg:"data added"})
+        const token = jwt.sign({ email,password}, process.env.SECRET, { expiresIn: '1h' });
+        res.send({token,name:userToBeAdded.username,userID:userToBeAdded._id,msg:"Sign in successfull!"})
     } catch (error) {
         console.log(error)
     }

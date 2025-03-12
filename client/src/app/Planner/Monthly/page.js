@@ -6,10 +6,7 @@ import React from 'react'
 const NOSSR=dynamic(()=>import('@/app/component/Monthly/Main'),{ssr:false})
 const page = () => {
   return (
-    <div className='p-3' style={{   background: "linear-gradient(90deg, #BE3144, #1D1616)",height:'100%'}}>
-    {/* <div style={{margin:'0px',padding:'0px'}}>
-        <Navbar/>
-    </div> */}
+    <div style={{height:"100%", background: "linear-gradient(90deg, #BE3144, #1D1616)"}}>
     <NOSSR/>
   </div>
   )

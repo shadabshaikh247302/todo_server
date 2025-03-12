@@ -1,137 +1,197 @@
-/* Container */
-.card-container {
+/* Container for the entire months grid */
+.monthly-container {
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  padding: 20px;
-  max-width: 900px;
-  margin: auto;
+  align-items: center;
+  margin-top: 20px;
 }
 
-/* Month Section */
+/* Grid for months */
+.months-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns max, change it to 6 if needed */
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Style for each month's div */
 .month-section {
-  background: rgba(30, 30, 30, 0.8);
+  background-color: white;
   padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease-in-out;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  text-align: center;
+  border: 1px solid #ddd;
 }
 
-.month-section:hover {
-  transform: translateY(-3px);
+/* Title of the month */
+.month-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Task list for each month */
+.task-list {
+  list-style-type: none;
+  padding: 0;
+  display: flex; /* Make tasks appear in a line */
+  flex-wrap: wrap; /* Allow tasks to wrap if needed */
+  justify-content: space-between; /* Space out the tasks */
+}
+
+/* Task item styling */
+.task-item {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin: 5px;
+  flex: 1 1 calc(33% - 10px); /* Adjust task item size to take up 1/3 of the available space */
+  text-align: left; /* Align text to the left */
+  min-width: 200px; /* Ensure tasks are at least this wide */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Task details */
+.task-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Button to add tasks */
+.add-task-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.add-task-btn:hover {
+  background-color: #45a049;
+}
+
+/* Delete button */
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ff4d4d;
+  font-size: 20px;
+  padding: 5px;
+}
+
+.delete-btn:hover {
+  color: #ff0000;
+}
+
+/* Style when no tasks are available */
+.no-tasks {
+  color: #888;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+/* Card.css */
+
+/* General Container Styles */
+.monthly-container {
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Months Grid Layout */
+.months-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Automatically adjust columns */
+  gap: 20px;
+  justify-content: space-between;
+}
+
+/* Month Section Styling */
+.month-section {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Month Title */
 .month-title {
-  color: #ffffff;
-  font-size: 1.8rem;
+  font-size: 1.25rem;
+  margin-bottom: 10px;
   font-weight: bold;
-  margin-bottom: 15px;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-  padding-bottom: 5px;
 }
 
-/* Task List */
+/* Task List Styling */
 .task-list {
-  list-style-type: none;
+  max-height: 300px;
+  overflow-y: auto;
   padding: 0;
+  margin: 0;
+  list-style-type: none;
 }
 
-/* Task Item */
+/* Task Item Styling */
 .task-item {
-  margin-bottom: 12px;
-}
-
-/* Card Styling with Glassmorphism */
-.card-month {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 15px;
-  border-radius: 12px;
-  backdrop-filter: blur(15px);
-  box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.1),
-              0 4px 10px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease-in-out;
-  cursor: pointer;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
 }
 
-.card-month:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.02);
+/* Hover Effect for Task Items */
+.task-item:hover {
+  background-color: #f1f1f1;
 }
 
-/* Task Details */
-.task-details {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  color: #fff;
-  font-size: 1.1rem;
-}
-
-/* Delete Button */
+/* Delete Button Styling */
 .delete-btn {
-  background: rgba(255, 0, 0, 0.7);
+  background: none;
   border: none;
-  font-size: 16px;
-  color: #fff;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: #d32f2f;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  font-size: 18px;
 }
 
+/* Hover Effect for Delete Button */
 .delete-btn:hover {
-  background: rgba(255, 0, 0, 1);
-  transform: scale(1.1);
+  color: #c62828;
 }
 
-/* No Tasks */
+/* No Tasks Message */
 .no-tasks {
-  color: #bbb;
   text-align: center;
-  font-size: 1.3rem;
-  margin-top: 20px;
+  font-size: 18px;
+  color: #999;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .card-month {
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-  }
-
-  .task-details {
-    margin-bottom: 10px;
-  }
-
-  .delete-btn {
-    font-size: 18px;
-    width: 35px;
-    height: 35px;
-  }
-}
-/* Hide scrollbar for all browsers */
-.scroll-container {
-  border: 1px solid black;
-  overflow-x: auto;
-  height: 400px;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer 11 */
+/* Add Task Button Styling */
+.add-task-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
-/* Hide scrollbar for Webkit browsers (Chrome, Safari) */
-.scroll-container::-webkit-scrollbar {
-  display: none;
+/* Hover Effect for Add Task Button */
+.add-task-btn:hover {
+  background-color: #45a049;
 }

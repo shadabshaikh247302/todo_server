@@ -2,23 +2,22 @@ import { Authcontext } from "@/app/Context/AuthContext";
 import { DailyContext } from "@/app/Context/DailyContext";
 import { MonthlyContext } from "@/app/Context/MonthlyContext";
 import React, { useContext, useRef, useState } from "react";
+import toast from "react-hot-toast";
 
 export const Form = ({ fetchTodos }) => {
   const { AuthData } = useContext(Authcontext);
   const { month, addTaskMonthly } = useContext(MonthlyContext)
   const SetInput = useRef("");
-  const [formDate, SetFromDate] = useState({ tittle: "", day: "", month: "", year: "" })
+  const [formDate, SetFromDate] = useState({ tittle: "", day: "", month: "", year: "",creator:AuthData.userID })
   const [isloader, setLoader] = useState(true)
 
   async function addTaskMonthlyHandler() {
 
     if (formDate.tittle !== ""  && formDate.day !== "" && formDate.month !== "" && formDate.year !== "") {
-      const status = await addTaskMonthly(AuthData, formDate);
-      if (status === 200) {
+      const status = await addTaskMonthly(formDate);
+      if(status){
+        toast.success("Task added successfully.")
         fetchTodos()
-        window.location.reload();
-      } else {
-        console.log("not added")
       }
     }else{
       alert("All fields are required !")

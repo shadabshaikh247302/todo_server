@@ -54,11 +54,9 @@ async function getDataById(id){
 function reducer(state,action){
     switch (action.type) {
         case "SIGN_IN":
-     
         const singinState={...action.payload}
-        // localStorage.setItem('userData',JSON.stringify(singinState))
+        localStorage.setItem('userData',JSON.stringify(singinState))
         return singinState;
-
         case "LOGIN_IN":
         const loginState={...action.payload}
         localStorage.setItem('userData',JSON.stringify(loginState))
