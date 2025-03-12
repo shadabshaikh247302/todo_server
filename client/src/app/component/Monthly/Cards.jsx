@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
-import { MonthlyContext } from "../../Context/MonthlyContext";
-import { Authcontext } from "../../Context/AuthContext";
+import { MonthlyContext } from "../../Context/Monthlycontext";
+import { Authcontext } from "../../Context/Authcontext";
 import "./Card.css"; // Import styles
 import toast from "react-hot-toast";
 

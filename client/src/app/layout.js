@@ -2,9 +2,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { MonthlyProvider } from "./Context/MonthlyContext";
-import { Provider } from "./Context/DailyContext";
-import { Authprovider } from "./Context/AuthContext";
+import { MonthlyProvider } from "./Context/Monthlycontext";
+import { Provider } from "./Context/Dailycontext";
+import { Authprovider } from "./Context/Authcontext";
 import { Navbar } from "./component/navbar/Navbar";
 import { Toaster } from "react-hot-toast";
 
