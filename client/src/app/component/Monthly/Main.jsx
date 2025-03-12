@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import { Cards } from './Cards';
 import { Form } from './Form';
-import { MonthlyContext } from '../../Context/MonthlyContext';
-import { Authcontext } from '../../Context/AuthContext';
+import { MonthlyContext } from '@/app/Context/MonthlyContext';
+import { Authcontext } from '@/app/Context/Authcontext';
+// import { Authcontext } from '@/app/Context/AuthContext';
 
 const Main = () => {
 const {dispatch,getTaskMonthly,name,MonthlyPlan} = useContext(MonthlyContext)

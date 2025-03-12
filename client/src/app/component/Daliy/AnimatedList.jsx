@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, useContext } from 'react';
 import { motion, useInView } from 'framer-motion';
 import './AnimatedList.css';
-import { DailyContext } from '../../Context/DailyContext';
+import { DailyContext } from '@/app/Context/DailyContext';
 
 const AnimatedItem = ({ children, delay = 0, index, onMouseEnter, onClick }) => {
     const {getAllTodos} = useContext(DailyContext)

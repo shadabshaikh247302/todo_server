@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 import React from 'react'
 
 
-const SSRDefault = dynamic(() => import('../../component/Daliy/Main'), {
+const SSRDefault = dynamic(() => import('@/app/component/Daliy/Main'), {
    ssr: false
 })
 
