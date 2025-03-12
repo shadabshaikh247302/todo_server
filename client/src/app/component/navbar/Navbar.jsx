@@ -14,7 +14,7 @@ export const Navbar = () => {
   const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
-    setIsMounted(true); // Ensures it only renders on the client
+    setIsMounted(true); 
   }, []);
   function logoutHandler() {
     const isConfirmLogout = window.confirm("Are you sure you want to logout?")
