@@ -6,6 +6,7 @@ import { Tomorrow } from "./Tomorrow";
 import "./loader.css";
 
 import { DailyContext } from "../../Context/DailyContext";
+import { Authcontext } from "../../Context/AuthContext";
 import { Navbar } from "../navbar/Navbar";
 import { Today } from "./Today";
 import { useRouter } from "next/navigation";
