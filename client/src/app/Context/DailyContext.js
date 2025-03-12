@@ -1,7 +1,7 @@
 "use client";
 
 
-import { API } from "@/utils/Utils";
+import { API } from "../../utils/Utils";
 import { createContext, useReducer } from "react";
 
 let NewObj = { todos: [] }; 

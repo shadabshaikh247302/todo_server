@@ -1,7 +1,6 @@
 "use client"
 // "use client"
-
-import { API } from "@/utils/Utils"
+import { API } from "../../utils/Utils";
 import toast from "react-hot-toast"
 
 const { createContext, useReducer } = require("react")
