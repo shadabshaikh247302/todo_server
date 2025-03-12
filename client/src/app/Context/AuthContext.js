@@ -1,6 +1,6 @@
 "use client"
 
-import { API } from "@/utils/Utils"
+import { API } from "../../utils/Utils"
 import toast from "react-hot-toast"
 
 const { createContext, useReducer } = require("react")
@@ -25,7 +25,6 @@ export const Authcontext = createContext()
 async function login(body){
     try {
         const response=await API.post("/auth/logIn",body)
-        console.log(body)
         return response?.data
     } catch (error) {
         toast.error(error?.response?.data||"Network error")

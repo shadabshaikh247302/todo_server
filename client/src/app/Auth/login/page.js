@@ -2,7 +2,7 @@
 import React, { useContext, useEffect } from 'react'
 import { Login } from './Login'
 import { useRouter } from 'next/navigation'
-import { Authcontext } from '@/app/Context/AuthContext'
+import { Authcontext } from '../../Context/AuthContext'
 import toast from 'react-hot-toast'
 
 const page = () => {

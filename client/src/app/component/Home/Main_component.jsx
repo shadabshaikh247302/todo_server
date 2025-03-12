@@ -1,7 +1,7 @@
 "use client";
 import React, { useContext } from "react";
 import { useRouter } from "next/navigation";
-import { MonthlyContext } from "@/app/Context/MonthlyContext";
+import { MonthlyContext } from "../../Context/MonthlyContext";
 // import { Navbar } from "../navbar/Navbar";
 
 export const Main_component = ({setCompo }) =>  {
