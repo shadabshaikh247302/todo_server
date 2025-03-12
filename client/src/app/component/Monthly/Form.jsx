@@ -1,6 +1,6 @@
-import { Authcontext } from "../../Context/Authcontext";
-import { DailyContext } from "../../Context/Dailycontext";
-import { MonthlyContext } from "../../Context/Monthlycontext";
+import { Authcontext } from "../../Context/AuthContext";
+import { DailyContext } from "../../Context/DailyContext";
+import { MonthlyContext } from "../../Context/MonthlyContext";
 import React, { useContext, useRef, useState } from "react";
 import toast from "react-hot-toast";
 

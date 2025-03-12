@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Box, IconButton, OutlinedInput, InputLabel, InputAdornment, FormControl, TextField, Button } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
-import { Authcontext } from "../../Context/Authcontext";
+import { Authcontext } from "../../Context/AuthContext";
 import { styled } from "@mui/material/styles";
 import toast from "react-hot-toast";
 

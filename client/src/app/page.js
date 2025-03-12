@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 import { Main_component } from "./component/Home/Main_component";
 import { Navbar } from "./component/navbar/Navbar";
 import { useContext } from "react";
-import { Authcontext } from "./Context/Authcontext";
+import { Authcontext } from "./Context/AuthContext";
 import { Login } from "./Auth/login/Login";
 import { useRouter } from "next/navigation";
 
