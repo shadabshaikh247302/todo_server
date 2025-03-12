@@ -1,5 +1,5 @@
 "use client"
-import { Navbar } from '@/app/component/navbar/Navbar'
+import { Navbar } from '../../component/navbar/Navbar'
 import dynamic from 'next/dynamic'
 import React from 'react'
 
