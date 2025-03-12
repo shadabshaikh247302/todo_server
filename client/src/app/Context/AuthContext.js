@@ -28,7 +28,7 @@ async function login(body){
         console.log(body)
         return response?.data
     } catch (error) {
-        toast.error(error?.response?.data||"error.response.data")
+        toast.error(error?.response?.data||"Network error")
         
     }
 }
