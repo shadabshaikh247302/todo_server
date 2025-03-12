@@ -1,4 +1,5 @@
 "use client"
+// "use client"
 
 import { API } from "@/utils/Utils"
 import toast from "react-hot-toast"
@@ -19,7 +20,6 @@ async function login(body){
         return response?.data
     } catch (error) {
         toast.error(error?.response?.data||"Network error")
-        
     }
 }
 
