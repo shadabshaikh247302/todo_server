@@ -5,12 +5,10 @@ import { Stick } from "next/font/google";
 import React, { useContext, useEffect } from "react";
 import toast from "react-hot-toast";
 export const Today = ({ moveTaskHandler, fetchTodos,setLoading }) => {
-  const { state, deleteTodos,moveToTomorrow } = useContext(DailyContext);
-  // const { AuthData } = useContext(Authcontext);
-  console.log(state)
-  
+const { state, deleteTodos,moveToTomorrow } = useContext(DailyContext);
+
   async function handleDelete(id) {
-    // console.log(id)
+
     const status = await deleteTodos(id);
     const isConfirmed = window.confirm("Are you sure you want to delete this task?");
     // console.log(status)

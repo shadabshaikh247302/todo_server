@@ -19,6 +19,7 @@
     border-bottom: 1px solid black;
 }
 .auth button:hover{
+    /* background-image: url(); */
     background-color: rgb(17, 215, 255);
     color: white;
     font-weight: 600;

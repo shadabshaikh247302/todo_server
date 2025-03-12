@@ -22,7 +22,8 @@ exports.logIn = async (req,res)=>{
                 const passwordVerify = await bcrypt.compare(password,mailVerify.password)
                 if(passwordVerify){
                     const token = jwt.sign({ email,password}, process.env.SECRET, { expiresIn: '1h' });
-                    res.send({token,userID:mailVerify._id})
+                    res.send({token,userID:mailVerify._id,name:mailVerify.username,image:mailVerify.profilePicture})
+                   
                 }else{
                     res.status(401).send("passowrd  is incorrect")
                 }

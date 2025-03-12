@@ -21,16 +21,12 @@ const VisuallyHiddenInput = styled("input")({
 export const Login = ({ setmode1, setmode }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const { login, dispatch } = useContext(Authcontext);
+  const { login, dispatch, getDataById } = useContext(Authcontext);
   const router = useRouter();
-  async function profileHandler(){
-    let Data = await getDataById(token.userID)
-    if(Data){
-      console.log(Data.data.data)
-      setData(Data?.data?.data)
-    }
-  }
+
+
   const handleSubmit = async () => {
+  
     if (formData.email !== "" && formData.password !== "") {
       const data = await login(formData);
       if (data) {

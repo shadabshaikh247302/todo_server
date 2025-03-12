@@ -65,9 +65,10 @@ export const Signin = ({ setMode }) => {
       className="shadow row justify-content-center"
       style={{
         borderRadius: "10px",
-        maxWidth: "90%",
+        maxWidth: "700px",
         background: "linear-gradient(90deg, rgba(190, 49, 68, 0.47), rgba(29, 22, 22, 0.36))",
         paddingTop: "20px",
+    
         paddingBottom: "20px",
         // marginTop: "-10vh",
       }}
@@ -164,7 +165,7 @@ export const Signin = ({ setMode }) => {
 
       <div className="text-center mt-3">
         <button
-          onClick={() => router.push("Login")}
+          onClick={() => router.push("login")}
           style={{
             backgroundColor: "transparent",
             fontWeight: "600",
