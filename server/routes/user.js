@@ -6,7 +6,7 @@ const { authenticator } = require('../middlewears/authenticator');
 
 const userRouter = express.Router();
 userRouter.get('/getData/:id', getAllTodos); 
-userRouter.get("/getTaskMonthly", getTaskMonthly);  // Authentication required
+userRouter.get("/getTaskMonthly/:id", getTaskMonthly);  // Authentication required
 userRouter.post("/addTaskMonthly", addTaskMonthly);  // Authentication required
 userRouter.delete("/deleteTaskMonthly/:id", deleteTaskMonthly);  // Authentication required
 userRouter.post("/addData",addData);  // Authentication required

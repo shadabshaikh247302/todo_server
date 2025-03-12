@@ -68,18 +68,13 @@ exports.deleteDataById = async (req,res)=>{
 
 exports.addData = async (req, res) => {
     try {
-        console.log("Request body:", req.body); // Debugging log
+        // console.log("Request body:", req.body); // Debugging log
 
         const tobeadded = new TDschema({ ...req.body });
         const todo = await tobeadded.save();
 
-        console.log("Saved Todo:", todo); // Debugging log
-
-        // Convert to array before passing to todoFormatter
+      
         let formattedTodo = todoFormatter([todo]);
-        // console.log()
-
-        console.log("Formatted Todo:", formattedTodo); // Debugging log
 
         res.send({ message: "Todo added successfully", todo: formattedTodo });
     } catch (error) {
